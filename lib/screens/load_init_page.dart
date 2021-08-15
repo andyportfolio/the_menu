@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:work_menupan/model/config.dart';
-import 'package:work_menupan/model/restaurant.dart';
+import 'package:menupan/model/config.dart';
+import 'package:menupan/model/restaurant.dart';
 
 import 'error_page.dart';
 import 'home/home_screen.dart';
@@ -18,7 +18,7 @@ class LoadInitPage extends StatefulWidget {
 class _LoadInitPageState extends State<LoadInitPage> {
   // manage state of modal progress HUD widget
   bool _isLoading = false;
-  
+
   //config 및 업소 리스트를 가져온다.
   final String accessURL = "https://www.mosoft.ca/tm/api/tm/getinit";
 
@@ -26,6 +26,16 @@ class _LoadInitPageState extends State<LoadInitPage> {
   void initState() {
     super.initState();
     _getInitAsync();
+
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   setState(() {
+    //     print('Handling a front message ${message}');
+    //   });
+    // });
+    //
+    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    //   print('A new onMessageOpenedApp event was published!${message}');
+    // });
   }
 
   void _getInitAsync() async {
@@ -76,7 +86,7 @@ class _LoadInitPageState extends State<LoadInitPage> {
       //configs.addAll(parsedData.configs);
 
       //set rootURL
-      for(var config in configs) {
+      for (var config in configs) {
         if (config.type == 'URL') {
           rootURL = config.config1;
           break;
@@ -163,11 +173,14 @@ class ResData {
     List<Config> configList = list.map((i) => Config.fromJson(i)).toList();
 
     var list2 = json['restaurants'] as List;
-    List<Restaurant> restaurantList = list2.map((i) => Restaurant.fromJson(i)).toList();
+    List<Restaurant> restaurantList =
+        list2.map((i) => Restaurant.fromJson(i)).toList();
 
     return ResData(
-        sql: json['sql'], status: json['status'],
-        configs: configList, restaurants: restaurantList);
+        sql: json['sql'],
+        status: json['status'],
+        configs: configList,
+        restaurants: restaurantList);
   }
 
   @override

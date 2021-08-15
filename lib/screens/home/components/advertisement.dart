@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:work_menupan/model/config.dart';
+import 'package:menupan/model/config.dart';
 
 import '../../../constant.dart';
 import '../adv_webview.dart';

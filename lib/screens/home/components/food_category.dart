@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:work_menupan/model/config.dart';
-import 'package:work_menupan/screens/restaurant/restaurantlist_screen.dart';
+import 'package:menupan/model/config.dart';
+import 'package:menupan/screens/restaurant/restaurantlist_screen.dart';
 
 class FoodCategory extends StatelessWidget {
   @override

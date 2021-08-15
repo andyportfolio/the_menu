@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:work_menupan/screens/home/event.dart';
-import 'package:work_menupan/screens/home/notice.dart';
+import 'package:menupan/screens/home/event.dart';
+import 'package:menupan/screens/home/notice.dart';
 import 'homepage.dart';
 
 

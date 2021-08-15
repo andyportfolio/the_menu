@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:work_menupan/model/restaurant.dart';
-import 'package:work_menupan/screens/home/adv_webview.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:menupan/model/restaurant.dart';
+import 'package:menupan/screens/home/adv_webview.dart';
 
 import '../../constant.dart';
 
@@ -27,8 +29,91 @@ class _RestaurantScreen extends State<RestaurantScreen> {
     super.dispose();
   }
 
+  final flutterWebViewPlugin = FlutterWebviewPlugin();
+
   @override
   Widget build(BuildContext context) {
+
+    return WebviewScaffold(
+      url: widget.restaurant.url,
+      appBar: new AppBar(
+        title: Text(widget.restaurant.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                )),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.info),
+            onPressed: () {
+              //restaurant web view 호출
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AdvWebView(
+                      widget.restaurant.title, widget.restaurant.url),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+      withZoom: true,
+      withLocalStorage: true,
+      scrollBar: true,
+      withJavascript: true,
+      initialChild: Center(child: Text('Loading...')),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(12),
+        child: Text('전화버튼을 눌러서 업소에 전화하세요.' + widget.restaurant.telephone),
+      ),
+      persistentFooterButtons: [
+        IconButton(
+              icon: const Icon(Icons.call),
+              onPressed: () {
+                launch("tel://4166179395");
+              },
+            ),
+        CircleAvatar(
+          backgroundColor: Colors.orange,
+          child: Text('btn2'),
+        ),
+        CircleAvatar(
+          backgroundColor: Colors.red,
+          child: Text('btn3'),
+        ),
+        CircleAvatar(
+          backgroundColor: Colors.grey[700],
+          child: Text('btn4'),
+        ),
+      ],
+      // bottomNavigationBar: BottomAppBar(
+      //   child: Row(
+      //     children: <Widget>[
+      //       IconButton(
+      //         icon: const Icon(Icons.arrow_back_ios),
+      //         onPressed: () {
+      //           flutterWebViewPlugin.goBack();
+      //         },
+      //       ),
+      //       IconButton(
+      //         icon: const Icon(Icons.arrow_forward_ios),
+      //         onPressed: () {
+      //           flutterWebViewPlugin.goForward();
+      //         },
+      //       ),
+      //       IconButton(
+      //         icon: const Icon(Icons.autorenew),
+      //         onPressed: () {
+      //           flutterWebViewPlugin.reload();
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // ),
+    );
+
     return Scaffold(
       backgroundColor: kPrimaryColor,
       appBar: AppBar(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:work_menupan/model/config.dart';
-import 'package:work_menupan/model/restaurant.dart';
-import 'package:work_menupan/screens/detail/restaurant_screen.dart';
+import 'package:menupan/model/config.dart';
+import 'package:menupan/model/restaurant.dart';
+import 'package:menupan/screens/detail/restaurant_screen.dart';
 
 class RestaurantCard extends StatelessWidget {
   const RestaurantCard({
@@ -42,7 +42,8 @@ class RestaurantCard extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                restaurant.isOpen ? '주문가능' : '주문불가',
+                //restaurant.isOpen ? '주문가능' : '주문불가',
+                '',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight:

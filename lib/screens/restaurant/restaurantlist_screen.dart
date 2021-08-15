@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:work_menupan/model/foodcategory.dart';
-import 'package:work_menupan/model/restaurant.dart';
-import 'package:work_menupan/screens/restaurant/restaurant_card.dart';
+import 'package:menupan/model/foodcategory.dart';
+import 'package:menupan/model/restaurant.dart';
+import 'package:menupan/screens/restaurant/restaurant_card.dart';
 
 import '../../constant.dart';
 

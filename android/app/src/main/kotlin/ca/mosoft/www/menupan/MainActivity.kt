@@ -1,4 +1,4 @@
-package ca.mosoft.www.menupan.work_menupan
+package ca.mosoft.www.menupan
 
 import io.flutter.embedding.android.FlutterActivity
 

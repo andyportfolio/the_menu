@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599173427097",
+    "project_id": "mosoft-menupan",
+    "storage_bucket": "mosoft-menupan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599173427097:android:0b619df76e504bd3716d08",
+        "android_client_info": {
+          "package_name": "ca.mosoft.www.menupan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599173427097-bkt5po52nkiuu3tfsvj9dcsd3fp65unl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw9N6h7wYeNNNKV3oJhJK9xEubzzOmCYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599173427097-bkt5po52nkiuu3tfsvj9dcsd3fp65unl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
