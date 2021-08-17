@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:menupan/model/restaurant.dart';
 import 'package:menupan/screens/home/adv_webview.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../constant.dart';
 
@@ -19,44 +20,34 @@ class RestaurantScreen extends StatefulWidget {
 }
 
 class _RestaurantScreen extends State<RestaurantScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    print("11111");
+  }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    flutterWebViewPlugin.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return WebviewScaffold(
       url: widget.restaurant.url,
       appBar: new AppBar(
         title: Text(widget.restaurant.title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                )),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            )),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.info),
-            onPressed: () {
-              //restaurant web view 호출
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AdvWebView(
-                      widget.restaurant.title, widget.restaurant.url),
-                ),
-              );
-            },
-          )
+          widget.restaurant.homepage.isNotEmpty ? _getHomePageInfo() : Container()
         ],
       ),
       withZoom: true,
@@ -64,30 +55,45 @@ class _RestaurantScreen extends State<RestaurantScreen> {
       scrollBar: true,
       withJavascript: true,
       initialChild: Center(child: Text('Loading...')),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(12),
-        child: Text('전화버튼을 눌러서 업소에 전화하세요.' + widget.restaurant.telephone),
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding: EdgeInsets.all(12),
+      //   child: Text('callToRestaurant'.tr(args: [widget.restaurant.telephone]) ),
+      // ),
       persistentFooterButtons: [
-        IconButton(
-              icon: const Icon(Icons.call),
+        Center(
+          child: TextButton.icon(
+              label: Text('callToRestaurant'.tr(args: [widget.restaurant.telephone]) ),
+              icon: Icon(Icons.call),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.teal,
+                onSurface: Colors.grey,
+              ),
               onPressed: () {
-                launch("tel://4166179395");
-              },
-            ),
-        CircleAvatar(
-          backgroundColor: Colors.orange,
-          child: Text('btn2'),
+                launch("tel://" + widget.restaurant.telephone);
+              }
+          ),
         ),
-        CircleAvatar(
-          backgroundColor: Colors.red,
-          child: Text('btn3'),
-        ),
-        CircleAvatar(
-          backgroundColor: Colors.grey[700],
-          child: Text('btn4'),
-        ),
+        // IconButton(
+        //   icon: const Icon(Icons.call),
+        //   onPressed: () {
+        //     launch("tel://4166179395");
+        //   },
+        // ),
+        // CircleAvatar(
+        //   backgroundColor: Colors.orange,
+        //   child: Text('btn2'),
+        // ),
+        // CircleAvatar(
+        //   backgroundColor: Colors.red,
+        //   child: Text('btn3'),
+        // ),
+        // CircleAvatar(
+        //   backgroundColor: Colors.grey[700],
+        //   child: Text('btn4'),
+        // ),
       ],
+
       // bottomNavigationBar: BottomAppBar(
       //   child: Row(
       //     children: <Widget>[
@@ -144,5 +150,21 @@ class _RestaurantScreen extends State<RestaurantScreen> {
         child: Text('메뉴판이 나와야 함'),
       ),
     );
+  }
+
+  IconButton _getHomePageInfo() {
+      return IconButton(
+        icon: Icon(Icons.info),
+        onPressed: () {
+          //restaurant home page 호출
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdvWebView(
+                  widget.restaurant.title + ' Website', widget.restaurant.homepage),
+            ),
+          );
+        },
+      );
   }
 }

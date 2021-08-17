@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:menupan/model/foodcategory.dart';
 import 'package:menupan/model/restaurant.dart';
 import 'package:menupan/screens/restaurant/restaurant_card.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../../constant.dart';
 
 class RestaurantListScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class RestaurantListScreen extends StatefulWidget {
 class _RestaurantListScreenState extends State<RestaurantListScreen>
     with SingleTickerProviderStateMixin {
   //item size
-  final itemSize = 120.0;
+  final itemSize = 120.0; //120 이면 한화면에 5칸이 나온다.
 
   ScrollController _controller;
   TabController _tabController;
@@ -33,6 +33,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen>
 
   @override
   void initState() {
+    super.initState();
     _controller = ScrollController();
     _controller.addListener(_scrollListener);
     _tabController = TabController(vsync: this, length: foodcategory.length);
@@ -48,8 +49,6 @@ class _RestaurantListScreenState extends State<RestaurantListScreen>
       //code will run when widget rendering complete
       _controller.jumpTo(_getPosition(currentTabIndex)); //list 이동
     });
-
-    super.initState();
   }
 
   @override
@@ -62,7 +61,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen>
   //스크롤 되면서 Tab을 이동 시켜야 한다.
   _scrollListener() {
     //스크롤 되
-    int num = _controller.offset ~/ 120;
+    int num = _controller.offset ~/ itemSize; //120
 
     //사용자가 탭을 클릭해서 움직인게 아니라면, 즉 스크롤링해서 움직일 경우에는
     //Tab을 이동시켜야 한다.
@@ -107,18 +106,19 @@ class _RestaurantListScreenState extends State<RestaurantListScreen>
       }
     }
 
-    return (offsetItemCount * 120).toDouble();
+    return (offsetItemCount * itemSize).toDouble();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: foodcategory.length,
       child: Scaffold(
         backgroundColor: kPrimaryColor,
         appBar: AppBar(
           elevation: 0,
-          title: Text('The Menu'),
+          title: Text('appTitle').tr(),
           centerTitle: false,
           bottom: TabBar(
             // unselectedLabelColor: Colors.white,

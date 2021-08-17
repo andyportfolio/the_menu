@@ -1,0 +1,14 @@
+{
+  "appTitle": "메뉴판",
+  "loadingMessage": "기초 정보를 가져오고 있습니다. 잠시만 기다려주세요.",
+  "BottomNavigationBarItem1": "초기화면",
+  "BottomNavigationBarItem2": "공지사항",
+  "BottomNavigationBarItem3": "이벤트",
+  "updateRecommendTitle": "새로운 버젼 출시",
+  "updateRecommendBody":"업데이트 하고 새로운 기능을 만나보세요",
+  "updateBtn":"업데이트",
+  "updateLaterBtn":"나중에",
+  "updateRequiredTitle":"업데이트가 필요",
+  "updateRequiredBody":"중요한 변경으로 인해 업데이트를 해야만 앱을 이용할수 있어요.",
+  "callToRestaurant":"업소에 전화 {} 하기"
+}

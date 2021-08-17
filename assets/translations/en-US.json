@@ -1,0 +1,14 @@
+{
+  "appTitle": "The Menu",
+  "loadingMessage": "Loading Initial Data, please wait a second ..",
+  "BottomNavigationBarItem1": "Home",
+  "BottomNavigationBarItem2": "Notice",
+  "BottomNavigationBarItem3": "Event",
+  "updateRecommendTitle": "New Version",
+  "updateRecommendBody":"You can use new feature !!",
+  "updateBtn":"Update",
+  "updateLaterBtn":"Skip",
+  "updateRequiredTitle":"Update Required",
+  "updateRequiredBody":"You should update with new version.",
+  "callToRestaurant":"Call to {}.."
+}

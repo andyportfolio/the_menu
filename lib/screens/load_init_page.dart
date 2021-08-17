@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:menupan/model/config.dart';
+import 'package:menupan/model/foodcategory.dart';
 import 'package:menupan/model/restaurant.dart';
+import 'package:package_info/package_info.dart';
 
 import 'error_page.dart';
 import 'home/home_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoadInitPage extends StatefulWidget {
   @override
@@ -18,6 +21,11 @@ class LoadInitPage extends StatefulWidget {
 class _LoadInitPageState extends State<LoadInitPage> {
   // manage state of modal progress HUD widget
   bool _isLoading = false;
+  String _minVersion;
+  String _latestVersion;
+
+  String _categoryKr;
+  String _categoryEn;
 
   //config 및 업소 리스트를 가져온다.
   final String accessURL = "https://www.mosoft.ca/tm/api/tm/getinit";
@@ -26,20 +34,11 @@ class _LoadInitPageState extends State<LoadInitPage> {
   void initState() {
     super.initState();
     _getInitAsync();
-
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   setState(() {
-    //     print('Handling a front message ${message}');
-    //   });
-    // });
-    //
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    //   print('A new onMessageOpenedApp event was published!${message}');
-    // });
   }
 
   void _getInitAsync() async {
     bool status = false;
+    String versionStatus; //G(Good) , R(Recommend)  , U(update 필요)
 
     // start the modal progress HUD
     setState(() {
@@ -54,9 +53,48 @@ class _LoadInitPageState extends State<LoadInitPage> {
     });
 
     if (status) {
-      _goToHomeScreen();
+      //버젼을 비교하여 alert만 뜨게 하거나
+      //강제로 version up을 하게 하는 페이지로 이동하게 한다.
+      versionStatus = await _versionCheck();
+      _goToHomeScreen(versionStatus);
     } else {
       _goToErrorPage();
+    }
+  }
+
+  Future<String> _versionCheck() async {
+    String _versionStatus = "G"; //default G(Good)
+
+    PackageInfo _packageInfo = PackageInfo(
+      appName: 'Unknown',
+      packageName: 'Unknown',
+      version: 'Unknown',
+      buildNumber: 'Unknown',
+    );
+
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+
+    print("App name: ${_packageInfo.appName}");
+    print('Package name:  ${_packageInfo.packageName}');
+    print('App version:  ${_packageInfo.version}');
+    print('Build number:  ${_packageInfo.buildNumber}');
+
+    String  currentVersion = _packageInfo.buildNumber;
+
+    // 사용중인 유저의 앱의 버전은 반드시 최소로 요구되는 버전보다 크거나 같아야 하고 최신 버전 이하여야 한다.
+    // minimumVersion <= currentVersion <= LatestVersion
+
+    //현재 버전 이 최소버젼 보다 작으면 update 해야 함.
+    if (int.parse(currentVersion) < int.parse(_minVersion)) {
+      return _versionStatus = 'U'; //update
+    } else if (int.parse(currentVersion) < int.parse(_latestVersion)) {
+      //현재 버전이 최근 버전보다 작으면 recommend 하게 한다.
+      return _versionStatus = 'R'; //recommend
+    } else {
+      return _versionStatus; // G : do nothing
     }
   }
 
@@ -81,7 +119,7 @@ class _LoadInitPageState extends State<LoadInitPage> {
 
       //set config
       configs = null;
-      configs = new List<Config>();
+      configs = <Config>[];
       configs = List.from(parsedData.configs);
       //configs.addAll(parsedData.configs);
 
@@ -89,22 +127,54 @@ class _LoadInitPageState extends State<LoadInitPage> {
       for (var config in configs) {
         if (config.type == 'URL') {
           rootURL = config.config1;
-          break;
+        }
+
+        if (config.type == 'VER') {
+          _minVersion = config.config1;
+          _latestVersion = config.config2;
+        }
+
+        //category
+        if (config.type == 'CAT') {
+          _categoryKr = config.config1;
+          _categoryEn = config.config2;
         }
       }
 
-      //print("rootURL: $rootURL");
+      print("_minVersion: $_minVersion");
+      print("_latestVersion: $_latestVersion");
+
+      print("_categoryKr: $_categoryKr");
+      print("_categoryEn: $_categoryEn");
+
+      //set categories
+      List<String> tmpCategoryKr = _categoryKr.split(',');
+      cat0Kr = tmpCategoryKr[0];
+      cat1Kr = tmpCategoryKr[1];
+      cat2Kr = tmpCategoryKr[2];
+      cat3Kr = tmpCategoryKr[3];
+      cat4Kr = tmpCategoryKr[4];
+      cat5Kr = tmpCategoryKr[5];
+      cat6Kr = tmpCategoryKr[6];
+      cat7Kr = tmpCategoryKr[7];
+      cat8Kr = tmpCategoryKr[8];
+
+      List<String> tmpCategoryEn = _categoryEn.split(',');
+      cat0En = tmpCategoryEn[0];
+      cat1En = tmpCategoryEn[1];
+      cat2En = tmpCategoryEn[2];
+      cat3En = tmpCategoryEn[3];
+      cat4En = tmpCategoryEn[4];
+      cat5En = tmpCategoryEn[5];
+      cat6En = tmpCategoryEn[6];
+      cat7En = tmpCategoryEn[7];
+      cat8En = tmpCategoryEn[8];
+
 
       //set product
       restaurants = null;
-      restaurants = new List<Restaurant>();
+      restaurants = <Restaurant>[];
       restaurants = List.from(parsedData.restaurants);
-      //restaurants.addAll(parsedData.restaurants);
-
-      //print("parsedData: ${parsedData.toString()}");
-
-      //print("configs: ${configs.toString()}");
-      //print("restaurants: ${restaurants.toString()}");
 
       status = parsedData.status;
     }
@@ -112,14 +182,14 @@ class _LoadInitPageState extends State<LoadInitPage> {
     return status;
   }
 
-  void _goToHomeScreen() {
+  void _goToHomeScreen(String versionStatus) {
     Future.delayed(Duration.zero, () {
       Navigator.of(context).pop();
 
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => HomeScreen(versionStatus: versionStatus),
         ),
       );
     });
@@ -146,11 +216,11 @@ class _LoadInitPageState extends State<LoadInitPage> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('The Menu'),
+          title: Text('appTitle').tr(),
           centerTitle: false,
         ),
         body: Center(
-          child: Text('기초 정보를 가져오고 있습니다. 잠시만 기다려주세요.'),
+          child: Text('loadingMessage').tr(),
         ),
       ),
       isLoading: _isLoading,

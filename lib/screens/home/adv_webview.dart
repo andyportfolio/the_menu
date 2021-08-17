@@ -12,12 +12,30 @@ class AdvWebView extends StatefulWidget {
 }
 
 class _AdvWebViewState extends State<AdvWebView> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("2222");
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    print("333");
+    //Navigator.pop(context);
+    //print("4444");
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
       url: widget.advUrl,
       appBar: new AppBar(
-        title: Text('The Order > ${widget.title}'),
+        title: Text(widget.title),
         centerTitle: false,
       ),
       withZoom: true,

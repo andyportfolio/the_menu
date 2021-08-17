@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:menupan/screens/load_init_page.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'constant.dart';
 
 //[FCM]
@@ -50,15 +50,39 @@ Future<void> main() async {
     sound: true,
   );
 
-  runApp(MyApp());
+  // easylocalization 초기화!
+  await EasyLocalization.ensureInitialized();
+
+  // 다국어 - https://blog.naver.com/chandong83/222422479689
+  // MyApp을 EasyLocalization 로 감싼다.
+  runApp(EasyLocalization(
+      // 지원 언어 리스트
+      supportedLocales: [Locale('en', 'US'), Locale('ko', 'KR')],
+      //path: 언어 파일 경로
+      path: 'assets/translations',
+      //fallbackLocale supportedLocales에 설정한 언어가 없는 경우 설정되는 언어
+      fallbackLocale: Locale('en', 'US'),
+
+      //startLocale을 지정하면 초기 언어가 설정한 언어로 변경됨
+      //만일 이 설정을 하지 않으면 OS 언어를 따라 기본 언어가 설정됨
+      //startLocale: Locale('ko', 'KR')
+
+      child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // 기본적으로 필요한 언어 설정 -// 로케일 delegate
+      localizationsDelegates: context.localizationDelegates,
+      // 지원하는 로케일
+      supportedLocales: context.supportedLocales,
+      // 설정된 로케일
+      locale: context.locale,
+
       debugShowCheckedModeBanner: false, //delete debug mark
-      title: 'The Menu',
       theme: ThemeData(
         //Poppins default font
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
@@ -95,76 +119,45 @@ class _FCMSettingPage extends State<FCMSettingPage> {
       if (notification != null && android != null) {
         print("message recieved");
         print(message.notification.body);
-        // showDialog(
-        //     context: context,
-        //     builder: (BuildContext context) {
-        //       return AlertDialog(
-        //         title: Text("Notification"),
-        //         content: Text(message.notification.body),
-        //         actions: [
-        //           TextButton(
-        //             child: Text("Ok"),
-        //             onPressed: () {
-        //               Navigator.of(context).pop();
-        //             },
-        //           )
-        //         ],
-        //       );
-        //     });
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channel.description,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ));
+        showNotification(
+            notification.hashCode, notification.title, notification.body);
       }
     });
 
-    // notification bar 를 click 했을때 보여주는 메세지
+    // notification bar 를 click 했을때 보여주는 메세지 는 잘동작하지 않아서 삭제
+    //FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {}
     //In a case where we will click on notification and open the app from terminated or background state,
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
-        showDialog(
-            context: context,
-            builder: (_) {
-              return AlertDialog(
-                title: Text(notification.title),
-                content: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(notification.body)],
-                  ),
-                ),
-              );
-            });
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, //delete debug mark
-      title: 'The Menu',
-      theme: ThemeData(
-        //Poppins default font
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
-        primaryColor: kPrimaryColor,
-        accentColor: kPrimaryColor,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: LoadInitPage()
-    );
+        debugShowCheckedModeBanner: false, //delete debug mark
+        theme: ThemeData(
+          //Poppins default font
+          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+          primaryColor: kPrimaryColor,
+          accentColor: kPrimaryColor,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: LoadInitPage());
   }
+}
+
+void showNotification(int hashCode, String title, String body) {
+  //TODO : comment의 내용과 아이콘을 변경하라
+  flutterLocalNotificationsPlugin.show(
+      hashCode,
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channel.description,
+          color: Colors.blue,
+          playSound: true,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ));
 }

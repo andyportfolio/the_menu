@@ -5,7 +5,7 @@ class Restaurant {
   //피자-반찬,패스트푸드->정육점
   final int category_id;
 
-  final String title, address, telephone, image, url;
+  final String title, address, telephone, image, url, homepage;
   bool isOpen; // 가게의 영업/폐점을 나타내는 것으로 사용
 
   Restaurant(
@@ -16,6 +16,7 @@ class Restaurant {
       this.telephone,
       this.image,
       this.url,
+      this.homepage,
       this.isOpen});
 
   factory Restaurant.fromJson(Map<String, dynamic> parsedJson) {
@@ -27,6 +28,7 @@ class Restaurant {
         telephone: parsedJson['telephone'],
         image: parsedJson['image'],
         url: parsedJson['url'],
+        homepage: parsedJson['homepage'],
         isOpen: parsedJson['isOpen'] == 'true');
   }
 }
