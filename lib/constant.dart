@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-const kBackgroundColor = Color(0xFFF1EFF1);
-const kPrimaryColor = Color(0xFFD50000); //blue : Color(0xFF035AA6);
-const kSecondaryColor = Color(0xFFFFA41B);
-const kTextColor = Color(0xFF000839);
-const kTextLightColor = Color(0xFF747474);
-const kGrey = Color(0xFFa0a0a0);
-const kBlueColor = Color(0xFF40BAD5);
+//https://api.flutter.dev/flutter/material/Colors/grey-constant.html
+const kPrimaryColor = Color(0xFF303030); //red Color(0xFFD50000); //blue : Color(0xFF035AA6);
+const kSelectedItemColor = Color(0xFFFAFAFA); // colors.grey[50]
+const kUnselectedItemColor = Color(0xFFBDBDBD); // colors.grey[400]
+
+const kFoodTileColor = Color(0xFF303030); //
 
 const kDefaultPadding = 20.0;
 

@@ -73,6 +73,8 @@ class RestaurantCard extends StatelessWidget {
             ],
           ),
           leading: CircleAvatar(
+            backgroundColor: kPrimaryColor,
+            foregroundColor:kPrimaryColor,
             radius: 30.0,
             //backgroundImage: AssetImage(restaurant.image),
             backgroundImage: NetworkImage(

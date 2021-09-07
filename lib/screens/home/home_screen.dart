@@ -43,7 +43,6 @@ class _ListPageState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       //backgroundColor: kPrimaryColor,
       appBar: AppBar(
@@ -63,8 +62,8 @@ class _ListPageState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           backgroundColor: kPrimaryColor,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.white,
+          selectedItemColor: kSelectedItemColor,
+          unselectedItemColor: kUnselectedItemColor,
           onTap: (index) {
             setState(() {
               _index = index;

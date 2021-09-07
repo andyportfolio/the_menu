@@ -4,6 +4,8 @@ import 'package:menupan/model/foodcategory.dart';
 import 'package:menupan/screens/restaurant/restaurantlist_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../constant.dart';
+
 class FoodCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -82,7 +84,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -109,7 +111,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -136,7 +138,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -163,7 +165,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -190,7 +192,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -217,7 +219,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -244,7 +246,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -271,7 +273,7 @@ class FoodCategory extends StatelessWidget {
             },
             child: GridTile(
               child: Card(
-                color: Colors.white,
+                color: kFoodTileColor,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
