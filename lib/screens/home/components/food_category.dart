@@ -35,258 +35,260 @@ class FoodCategory extends StatelessWidget {
 
     }
 
-    return GridView.count(
-      shrinkWrap: true,
-      physics: ScrollPhysics(),
-      crossAxisCount: 3,
-      padding: const EdgeInsets.all(4),
-      crossAxisSpacing: 0,
-      mainAxisSpacing: 0,
-      children: <Widget>[
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(0),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile1,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+    return Center(
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: ScrollPhysics(),
+        crossAxisCount: 3,
+        padding: const EdgeInsets.all(4),
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 0,
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(0),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile1,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(1),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile2,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(1),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile2,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(2),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile3,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(2),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile3,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(3),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile4,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(3),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile4,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(4),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile5,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(4),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile5,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(5),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile6,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(5),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile6,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(6),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile7,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(6),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile7,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(7),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile8,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(7),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile8,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RestaurantListScreen(8),
-              ),
-            );
-          },
-          child: GridTile(
-            child: Card(
-              color: Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Image.network(
-                      rootURL + menuFile9,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantListScreen(8),
+                ),
+              );
+            },
+            child: GridTile(
+              child: Card(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.network(
+                        rootURL + menuFile9,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

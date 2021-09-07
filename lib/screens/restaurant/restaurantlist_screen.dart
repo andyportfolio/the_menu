@@ -18,7 +18,7 @@ class RestaurantListScreen extends StatefulWidget {
 class _RestaurantListScreenState extends State<RestaurantListScreen>
     with SingleTickerProviderStateMixin {
   //item size
-  final itemSize = 120.0; //120 이면 한화면에 5칸이 나온다.
+  final itemSize = 140.0; //120 이면 한화면에 5칸이 나온다. 140 이면 4칸 반 나옴.
 
   ScrollController _controller;
   TabController _tabController;

@@ -1,9 +1,10 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:menupan/screens/home/event.dart';
+import 'package:menupan/screens/home/eventpage.dart';
 import 'package:menupan/screens/home/notice.dart';
 
+import '../../constant.dart';
 import 'homepage.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _ListPageState extends State<HomeScreen> {
   var _index = 0;
-  var _pages = [HomePage(), Notice(), Event()];
+  var _pages = [HomePage(), Notice(), EventPage()];
 
   @override
   void initState() {
@@ -51,27 +52,40 @@ class _ListPageState extends State<HomeScreen> {
         centerTitle: false,
       ),
       body: _pages[_index],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            _index = index;
-          });
-        },
-        currentIndex: _index,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            title: Text('BottomNavigationBarItem1').tr(),
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            title: Text('BottomNavigationBarItem2').tr(),
-            icon: Icon(Icons.notifications_active),
-          ),
-          BottomNavigationBarItem(
-            title: Text('BottomNavigationBarItem3').tr(),
-            icon: Icon(Icons.event),
-          ),
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: kPrimaryColor,
+              blurRadius: 2,
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: kPrimaryColor,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.white,
+          onTap: (index) {
+            setState(() {
+              _index = index;
+            });
+          },
+          currentIndex: _index,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              title: Text('BottomNavigationBarItem1').tr(),
+              icon: Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              title: Text('BottomNavigationBarItem2').tr(),
+              icon: Icon(Icons.notifications_active),
+            ),
+            BottomNavigationBarItem(
+              title: Text('BottomNavigationBarItem3').tr(),
+              icon: Icon(Icons.event),
+            ),
+          ],
+        ),
       ),
     );
   }

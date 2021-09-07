@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:menupan/screens/load_init_page.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'constant.dart';
 
 //[FCM]
@@ -55,19 +56,20 @@ Future<void> main() async {
 
   // 다국어 - https://blog.naver.com/chandong83/222422479689
   // MyApp을 EasyLocalization 로 감싼다.
-  runApp(EasyLocalization(
-      // 지원 언어 리스트
-      supportedLocales: [Locale('en', 'US'), Locale('ko', 'KR')],
-      //path: 언어 파일 경로
-      path: 'assets/translations',
-      //fallbackLocale supportedLocales에 설정한 언어가 없는 경우 설정되는 언어
-      fallbackLocale: Locale('en', 'US'),
+  runApp(
+    EasyLocalization(
+        // 지원 언어 리스트
+        supportedLocales: [Locale('en', 'US'), Locale('ko', 'KR')],
+        //path: 언어 파일 경로
+        path: 'assets/translations',
+        //fallbackLocale supportedLocales에 설정한 언어가 없는 경우 설정되는 언어
+        fallbackLocale: Locale('en', 'US'),
 
-      //startLocale을 지정하면 초기 언어가 설정한 언어로 변경됨
-      //만일 이 설정을 하지 않으면 OS 언어를 따라 기본 언어가 설정됨
-      //startLocale: Locale('ko', 'KR')
+        //startLocale을 지정하면 초기 언어가 설정한 언어로 변경됨
+        //만일 이 설정을 하지 않으면 OS 언어를 따라 기본 언어가 설정됨
+        //startLocale: Locale('ko', 'KR')
 
-      child: MyApp()),
+        child: MyApp()),
   );
 }
 
@@ -82,7 +84,8 @@ class MyApp extends StatelessWidget {
       // 설정된 로케일
       locale: context.locale,
 
-      debugShowCheckedModeBanner: false, //delete debug mark
+      debugShowCheckedModeBanner: false,
+      //delete debug mark
       theme: ThemeData(
         //Poppins default font
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
@@ -90,7 +93,7 @@ class MyApp extends StatelessWidget {
         accentColor: kPrimaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: FCMSettingPage(title: 'Flutter Demo Home Page'),
+      home: FCMSettingPage(),
     );
   }
 }
@@ -140,7 +143,7 @@ class _FCMSettingPage extends State<FCMSettingPage> {
           accentColor: kPrimaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LoadInitPage());
+        home: LoadInitPage(context.locale.countryCode));
   }
 }
 

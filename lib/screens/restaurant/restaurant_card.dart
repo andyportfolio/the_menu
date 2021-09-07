@@ -3,8 +3,10 @@ import 'package:menupan/model/config.dart';
 import 'package:menupan/model/restaurant.dart';
 import 'package:menupan/screens/detail/restaurant_screen.dart';
 
+import '../../constant.dart';
+
 class RestaurantCard extends StatelessWidget {
-  const RestaurantCard({
+  RestaurantCard({
     Key key,
     this.restaurant,
     this.itemIndex,
@@ -15,11 +17,15 @@ class RestaurantCard extends StatelessWidget {
   final int itemIndex;
   final Function press;
 
+  final String faceURL = rootURL + 'restaurant/images/';
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 0.5),
       child: Card(
+        elevation: 5,
+        shadowColor: kPrimaryColor,
         child: ListTile(
           contentPadding: EdgeInsets.all(10),
           onTap: () {
@@ -42,19 +48,35 @@ class RestaurantCard extends StatelessWidget {
               ),
             ],
           ),
-          subtitle: Text('${restaurant.address}  ${restaurant.telephone} '),
-          // subtitle: Row(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: <Widget>[
-          //     Text(restaurant.address),
-          //     Text(restaurant.telephone),
-          //   ],
-          //),
+          //subtitle: Text('${restaurant.address}  ${restaurant.telephone} '),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(restaurant.main,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: TextStyle(
+                      color: kPrimaryColor, fontStyle: FontStyle.italic)),
+              Text(
+                restaurant.address,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
+              Text(
+                restaurant.telephone,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
+            ],
+          ),
           leading: CircleAvatar(
             radius: 30.0,
             //backgroundImage: AssetImage(restaurant.image),
             backgroundImage: NetworkImage(
-              rootURL + restaurant.image,
+              faceURL + restaurant.restaurant_code.toString() + '.jpg',
             ),
           ),
         ),

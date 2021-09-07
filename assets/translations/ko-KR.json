@@ -9,6 +9,5 @@
   "updateBtn":"업데이트",
   "updateLaterBtn":"나중에",
   "updateRequiredTitle":"업데이트가 필요",
-  "updateRequiredBody":"중요한 변경으로 인해 업데이트를 해야만 앱을 이용할수 있어요.",
-  "callToRestaurant":"업소에 전화 {} 하기"
+  "updateRequiredBody":"중요한 변경으로 인해 업데이트를 해야만 앱을 이용할수 있어요."
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:menupan/model/config.dart';
+import 'package:menupan/model/event.dart';
 import 'package:menupan/model/foodcategory.dart';
 import 'package:menupan/model/restaurant.dart';
 import 'package:package_info/package_info.dart';
@@ -14,6 +15,9 @@ import 'home/home_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class LoadInitPage extends StatefulWidget {
+  final String countryCode;
+  LoadInitPage(this.countryCode);
+
   @override
   _LoadInitPageState createState() => _LoadInitPageState();
 }
@@ -45,7 +49,7 @@ class _LoadInitPageState extends State<LoadInitPage> {
       _isLoading = true;
     });
 
-    status = await _getInit();
+    status = await _getInit(widget.countryCode);
 
     // stop the modal progress HUD
     setState(() {
@@ -98,16 +102,16 @@ class _LoadInitPageState extends State<LoadInitPage> {
     }
   }
 
-  Future<bool> _getInit() async {
+  Future<bool> _getInit(String countryCode) async {
     bool status = false;
 
     http.Response response = await http.post(
       accessURL,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
+      },body: jsonEncode({'countryCode': countryCode}));
 
+    print("countryCode: $countryCode");
     print("response.statusCode: ${response.statusCode}");
 
     if (response.statusCode == 200) {
@@ -176,6 +180,11 @@ class _LoadInitPageState extends State<LoadInitPage> {
       restaurants = <Restaurant>[];
       restaurants = List.from(parsedData.restaurants);
 
+      //set event
+      events = null;
+      events = <Event>[];
+      events = List.from(parsedData.events);
+
       status = parsedData.status;
     }
 
@@ -235,27 +244,31 @@ class ResData {
   final bool status;
   final List<Config> configs;
   final List<Restaurant> restaurants;
+  final List<Event> events;
 
-  ResData({this.sql, this.status, this.configs, this.restaurants});
+  ResData({this.sql, this.status, this.configs, this.restaurants, this.events});
 
   factory ResData.fromJson(Map<String, dynamic> json) {
     var list = json['configs'] as List;
     List<Config> configList = list.map((i) => Config.fromJson(i)).toList();
 
     var list2 = json['restaurants'] as List;
-    List<Restaurant> restaurantList =
-        list2.map((i) => Restaurant.fromJson(i)).toList();
+    List<Restaurant> restaurantList = list2.map((i) => Restaurant.fromJson(i)).toList();
+
+    var list3 = json['events'] as List;
+    List<Event> eventList = list3.map((i) => Event.fromJson(i)).toList();
 
     return ResData(
         sql: json['sql'],
         status: json['status'],
         configs: configList,
-        restaurants: restaurantList);
+        restaurants: restaurantList,
+        events: eventList);
   }
 
   @override
   String toString() {
     return 'ResData{sql: $sql, status: $status ,'
-        'configs: $configs ,restaurants: $restaurants}';
+        'configs: $configs ,restaurants: $restaurants ,events: $events}';
   }
 }

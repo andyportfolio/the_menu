@@ -9,6 +9,5 @@
   "updateBtn":"Update",
   "updateLaterBtn":"Skip",
   "updateRequiredTitle":"Update Required",
-  "updateRequiredBody":"You should update with new version.",
-  "callToRestaurant":"Call to {}.."
+  "updateRequiredBody":"You should update with new version."
 }

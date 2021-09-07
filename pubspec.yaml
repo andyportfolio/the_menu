@@ -45,6 +45,9 @@ dependencies:
   #다국어 지원
   easy_localization: ^3.0.0
 
+  #web view(normal)
+  webview_flutter: ^2.0.12
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

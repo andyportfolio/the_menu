@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:menupan/model/config.dart';
 
 class Notice extends StatefulWidget {
   @override
@@ -6,6 +8,9 @@ class Notice extends StatefulWidget {
 }
 
 class _NoticeState extends State<Notice> {
+
+  final String noticeURL = rootURL + 'notice/notice.html';
+
   @override
   void initState() {
     super.initState();
@@ -13,14 +18,13 @@ class _NoticeState extends State<Notice> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _getWidget(),
-      ),
+    return WebviewScaffold(
+      url: noticeURL,
+      withZoom: true,
+      withLocalStorage: true,
+      scrollBar: true,
+      withJavascript: true,
+      initialChild: Center(child: Text('Loading...')),
     );
-  }
-
-  Widget _getWidget() {
-    return Text('notice information -> web view');
   }
 }
