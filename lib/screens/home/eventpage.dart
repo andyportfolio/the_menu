@@ -82,6 +82,7 @@ class _EventPageState extends State<EventPage> {
           return restaurant;
       }
     }
+    return null;
   }
 
 }

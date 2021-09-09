@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:menupan/model/restaurant.dart';
@@ -19,7 +18,6 @@ class RestaurantScreen extends StatefulWidget {
 }
 
 class _RestaurantScreen extends State<RestaurantScreen> {
-  Future<void> _launched;
   final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   //https://pub.dev/packages/url_launcher/example
@@ -97,7 +95,7 @@ class _RestaurantScreen extends State<RestaurantScreen> {
       icon: Icon(Icons.info),
       onPressed: () {
         setState(() {
-          _launched = _launchInBrowser(widget.restaurant.homepage);
+          _launchInBrowser(widget.restaurant.homepage);
         });
       },
     );

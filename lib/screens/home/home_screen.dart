@@ -72,15 +72,15 @@ class _ListPageState extends State<HomeScreen> {
           currentIndex: _index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              title: Text('BottomNavigationBarItem1').tr(),
+              label: Text('BottomNavigationBarItem1').tr().data,
               icon: Icon(Icons.home),
             ),
             BottomNavigationBarItem(
-              title: Text('BottomNavigationBarItem3').tr(),
+              label: Text('BottomNavigationBarItem3').tr().data,
               icon: Icon(Icons.event),
             ),
             BottomNavigationBarItem(
-              title: Text('BottomNavigationBarItem2').tr(),
+              label: Text('BottomNavigationBarItem2').tr().data,
               icon: Icon(Icons.notifications_active),
             ),
           ],
@@ -102,12 +102,12 @@ class _ListPageState extends State<HomeScreen> {
               ),
             ),
             actions: <Widget>[
-              FlatButton(onPressed: () {
+              TextButton(onPressed: () {
                 Navigator.of(context).pop();
                 //TODO : update 하는 deep link 로 이동하기.
               },
                   child: Text("updateBtn").tr()),
-              FlatButton(onPressed: () {
+              TextButton(onPressed: () {
                 Navigator.of(context).pop();
               },
                   child: Text("updateLaterBtn").tr())
@@ -130,7 +130,7 @@ class _ListPageState extends State<HomeScreen> {
               ),
             ),
             actions: <Widget>[
-              FlatButton(onPressed: () {
+              TextButton(onPressed: () {
                 Navigator.of(context).pop();
                 //TODO : update 하는 deep link 로 이동하기.
               },

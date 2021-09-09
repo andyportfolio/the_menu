@@ -18,7 +18,7 @@ class _AdvertisementState extends State<Advertisement> {
   void initState() {
     super.initState();
 
-    _advImages = new List<String>();
+    _advImages = <String>[];
 
     setState(() {
       for (var config in configs) {

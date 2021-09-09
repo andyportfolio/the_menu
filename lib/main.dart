@@ -33,7 +33,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 //for handling background messages
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('A bg message just showed up :  ${message.messageId}');
+  //print('A bg message just showed up :  ${message.messageId}');
 }
 
 Future<void> main() async {
@@ -120,7 +120,6 @@ class FCMSettingPage extends StatefulWidget {
 }
 
 class _FCMSettingPage extends State<FCMSettingPage> {
-  int _counter = 0;
 
   @override
   void initState() {
@@ -132,8 +131,7 @@ class _FCMSettingPage extends State<FCMSettingPage> {
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
       if (notification != null && android != null) {
-        print("message recieved");
-        print(message.notification.body);
+        //print(message.notification.body);
         showNotification(
             notification.hashCode, notification.title, notification.body);
       }
