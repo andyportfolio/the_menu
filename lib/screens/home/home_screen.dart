@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _ListPageState extends State<HomeScreen> {
   var _index = 0;
-  var _pages = [HomePage(), Notice(), EventPage()];
+  var _pages = [HomePage(),EventPage(),Notice()];
 
   @override
   void initState() {
@@ -76,12 +76,12 @@ class _ListPageState extends State<HomeScreen> {
               icon: Icon(Icons.home),
             ),
             BottomNavigationBarItem(
-              title: Text('BottomNavigationBarItem2').tr(),
-              icon: Icon(Icons.notifications_active),
-            ),
-            BottomNavigationBarItem(
               title: Text('BottomNavigationBarItem3').tr(),
               icon: Icon(Icons.event),
+            ),
+            BottomNavigationBarItem(
+              title: Text('BottomNavigationBarItem2').tr(),
+              icon: Icon(Icons.notifications_active),
             ),
           ],
         ),

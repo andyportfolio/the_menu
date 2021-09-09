@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:menupan/constant.dart';
 import 'package:menupan/model/config.dart';
 import 'package:menupan/model/event.dart';
 import 'package:menupan/model/foodcategory.dart';
@@ -228,8 +229,11 @@ class _LoadInitPageState extends State<LoadInitPage> {
           title: Text('appTitle').tr(),
           centerTitle: false,
         ),
-        body: Center(
-          child: Text('loadingMessage').tr(),
+        body: Container(
+          color: kPrimaryColor,
+          child: Center(
+            child: Text('loadingMessage',style: TextStyle(color: kLoadingTextColor),).tr(),
+          ),
         ),
       ),
       isLoading: _isLoading,

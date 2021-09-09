@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,9 @@ import 'constant.dart';
 //https://www.youtube.com/watch?v=pVUIU_nq8MU
 //https://github.com/karankharode/Flutter-2.0-Firebase-Push-Notifications
 //https://pranavfulkari.com/blogs/flutter/push-notifications-in-flutter-2-0-with-firebase-cloud-messaging-flutter-local-notifications/
+
+//Firebase analytics
+//https://dev-yakuza.posstree.com/ko/flutter/firebase/analytics/
 
 //Notification channel for android, this will help in receiving notification
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -74,9 +79,16 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //setting firebase analytics
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
+
       // 기본적으로 필요한 언어 설정 -// 로케일 delegate
       localizationsDelegates: context.localizationDelegates,
       // 지원하는 로케일

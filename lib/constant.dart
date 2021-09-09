@@ -8,6 +8,7 @@ const kUnselectedItemColor = Color(0xFFBDBDBD); // colors.grey[400]
 const kFoodTileColor = Color(0xFF303030); //
 
 const kDefaultPadding = 20.0;
+const kLoadingTextColor = Color(0xFFFAFAFA);
 
 // our default Shadow
 const kDefaultShadow = BoxShadow(
