@@ -9,5 +9,7 @@
   "updateBtn":"Update",
   "updateLaterBtn":"Skip",
   "updateRequiredTitle":"Update Required",
-  "updateRequiredBody":"You should update with new version."
+  "updateRequiredBody":"You should update with new version.",
+  "error_msg":"Error happens. please try again.",
+  "no_event":"No new event. \n if you want to add event, please contact info@mosoft.ca"
 }

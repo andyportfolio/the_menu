@@ -9,5 +9,7 @@
   "updateBtn":"업데이트",
   "updateLaterBtn":"나중에",
   "updateRequiredTitle":"업데이트가 필요",
-  "updateRequiredBody":"중요한 변경으로 인해 업데이트를 해야만 앱을 이용할수 있어요."
+  "updateRequiredBody":"중요한 변경으로 인해 업데이트를 해야만 앱을 이용할수 있어요.",
+  "error_msg":"오류가 발생 했습니다.",
+  "no_event":"새로운 이벤트가 없습니다. \n 이벤트 추가 문의는 info@mosoft.ca 로 해주세요."
 }

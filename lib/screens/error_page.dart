@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ErrorPage extends StatefulWidget {
   @override
@@ -14,11 +15,11 @@ class _ErrorPageState extends State<ErrorPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('The Order'),
+        title: Text('appTitle').tr(),
         centerTitle: false,
       ),
       body: Center(
-        child: Text('Error 가 발생하였습니다.'),
+        child: Text('error_msg').tr(),
       ),
     );
   }

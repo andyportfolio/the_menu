@@ -3,6 +3,7 @@ import 'package:menupan/model/config.dart';
 import 'package:menupan/model/event.dart';
 import 'package:menupan/model/restaurant.dart';
 import 'package:menupan/screens/detail/restaurant_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../constant.dart';
 
@@ -34,55 +35,69 @@ class _EventPageState extends State<EventPage> {
             Expanded(
               child: Container(
                 color: Colors.grey[100],
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    //스크롤이 가능한 객체안에 다시스크롤이 있는경우 설정함
-                    itemCount: events.length,
-                    itemExtent: itemSize,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 0.5),
-                      child: Card(
-                        elevation: 5,
-                        shadowColor: kPrimaryColor,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,  //I assumed you want to occupy the entire space of the card
-                              image: NetworkImage(
-                                eventURL + events[index].image,
-                              ),
-                            ),
-                          ),
-                          child: ListTile(
-                            contentPadding: EdgeInsets.all(10),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RestaurantScreen(_getRestaurant(events[index].restaurant_id)),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    )
-                  ),
-                ),
+                child: getListView(),
               ),
+            ),
           ],
         ),
       ),
     );
   }
 
+  Widget getListView() {
+    if (events.length == 0) {
+      return Center(
+        child: Text('no_event',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold))
+            .tr(),
+      );
+    } else {
+      return ListView.builder(
+          shrinkWrap: true,
+          //스크롤이 가능한 객체안에 다시스크롤이 있는경우 설정함
+          itemCount: events.length,
+          itemExtent: itemSize,
+          itemBuilder: (context, index) => Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 1.0, horizontal: 0.5),
+                child: Card(
+                  elevation: 5,
+                  shadowColor: kPrimaryColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        //I assumed you want to occupy the entire space of the card
+                        image: NetworkImage(
+                          eventURL + events[index].image,
+                        ),
+                      ),
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(10),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RestaurantScreen(
+                                _getRestaurant(events[index].restaurant_id)),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ));
+    }
+  }
+
   Restaurant _getRestaurant(int restaurant_id) {
     for (var restaurant in restaurants) {
       if (restaurant.restaurant_id == restaurant_id) {
-          return restaurant;
+        return restaurant;
       }
     }
     return null;
   }
-
 }

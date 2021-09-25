@@ -118,7 +118,7 @@ class _LoadInitPageState extends State<LoadInitPage> {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
 
-      //print("jsonResponse: $jsonResponse");
+      print("jsonResponse: $jsonResponse");
 
       final ResData parsedData = ResData.fromJson(jsonResponse);
 
