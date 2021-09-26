@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
@@ -13,10 +15,10 @@ import 'package:package_info/package_info.dart';
 
 import 'error_page.dart';
 import 'home/home_screen.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LoadInitPage extends StatefulWidget {
   final String countryCode;
+
   LoadInitPage(this.countryCode);
 
   @override
@@ -31,6 +33,8 @@ class _LoadInitPageState extends State<LoadInitPage> {
 
   String _categoryKr;
   String _categoryEn;
+
+  String _errorMessage = 'unknown';
 
   //config 및 업소 리스트를 가져온다.
   final String accessURL = "https://www.mosoft.ca/tm/api/tm/getinit";
@@ -63,7 +67,7 @@ class _LoadInitPageState extends State<LoadInitPage> {
       versionStatus = await _versionCheck();
       _goToHomeScreen(versionStatus);
     } else {
-      _goToErrorPage();
+      _goToErrorPage(_errorMessage);
     }
   }
 
@@ -87,7 +91,7 @@ class _LoadInitPageState extends State<LoadInitPage> {
     print('App version:  ${_packageInfo.version}');
     print('Build number:  ${_packageInfo.buildNumber}');
 
-    String  currentVersion = _packageInfo.buildNumber;
+    String currentVersion = _packageInfo.buildNumber;
 
     // 사용중인 유저의 앱의 버전은 반드시 최소로 요구되는 버전보다 크거나 같아야 하고 최신 버전 이하여야 한다.
     // minimumVersion <= currentVersion <= LatestVersion
@@ -106,87 +110,98 @@ class _LoadInitPageState extends State<LoadInitPage> {
   Future<bool> _getInit(String countryCode) async {
     bool status = false;
 
-    http.Response response = await http.post(
-      accessURL,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },body: jsonEncode({'countryCode': countryCode}));
+    try {
+      http.Response response = await http
+          .post(accessURL,
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode({'countryCode': countryCode}))
+          .timeout(Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('timeout');
+      });
 
-    print("countryCode: $countryCode");
-    print("response.statusCode: ${response.statusCode}");
+      print("countryCode: $countryCode");
+      print("response.statusCode: ${response.statusCode}");
 
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
 
-      print("jsonResponse: $jsonResponse");
+        print("jsonResponse: $jsonResponse");
 
-      final ResData parsedData = ResData.fromJson(jsonResponse);
+        final ResData parsedData = ResData.fromJson(jsonResponse);
 
-      //set config
-      configs = null;
-      configs = <Config>[];
-      configs = List.from(parsedData.configs);
-      //configs.addAll(parsedData.configs);
+        //set config
+        configs = null;
+        configs = <Config>[];
+        configs = List.from(parsedData.configs);
+        //configs.addAll(parsedData.configs);
 
-      //set rootURL
-      for (var config in configs) {
-        if (config.type == 'URL') {
-          rootURL = config.config1;
+        //set rootURL
+        for (var config in configs) {
+          if (config.type == 'URL') {
+            rootURL = config.config1;
+          }
+
+          if (config.type == 'VER') {
+            _minVersion = config.config1;
+            _latestVersion = config.config2;
+          }
+
+          //category
+          if (config.type == 'CAT') {
+            _categoryKr = config.config1;
+            _categoryEn = config.config2;
+          }
         }
 
-        if (config.type == 'VER') {
-          _minVersion = config.config1;
-          _latestVersion = config.config2;
-        }
+        print("_minVersion: $_minVersion");
+        print("_latestVersion: $_latestVersion");
 
-        //category
-        if (config.type == 'CAT') {
-          _categoryKr = config.config1;
-          _categoryEn = config.config2;
-        }
+        print("_categoryKr: $_categoryKr");
+        print("_categoryEn: $_categoryEn");
+
+        //set categories
+        List<String> tmpCategoryKr = _categoryKr.split(',');
+        cat0Kr = tmpCategoryKr[0];
+        cat1Kr = tmpCategoryKr[1];
+        cat2Kr = tmpCategoryKr[2];
+        cat3Kr = tmpCategoryKr[3];
+        cat4Kr = tmpCategoryKr[4];
+        cat5Kr = tmpCategoryKr[5];
+        cat6Kr = tmpCategoryKr[6];
+        cat7Kr = tmpCategoryKr[7];
+        cat8Kr = tmpCategoryKr[8];
+
+        List<String> tmpCategoryEn = _categoryEn.split(',');
+        cat0En = tmpCategoryEn[0];
+        cat1En = tmpCategoryEn[1];
+        cat2En = tmpCategoryEn[2];
+        cat3En = tmpCategoryEn[3];
+        cat4En = tmpCategoryEn[4];
+        cat5En = tmpCategoryEn[5];
+        cat6En = tmpCategoryEn[6];
+        cat7En = tmpCategoryEn[7];
+        cat8En = tmpCategoryEn[8];
+
+        //set product
+        restaurants = null;
+        restaurants = <Restaurant>[];
+        restaurants = List.from(parsedData.restaurants);
+
+        //set event
+        events = null;
+        events = <Event>[];
+        events = List.from(parsedData.events);
+
+        status = parsedData.status;
       }
-
-      print("_minVersion: $_minVersion");
-      print("_latestVersion: $_latestVersion");
-
-      print("_categoryKr: $_categoryKr");
-      print("_categoryEn: $_categoryEn");
-
-      //set categories
-      List<String> tmpCategoryKr = _categoryKr.split(',');
-      cat0Kr = tmpCategoryKr[0];
-      cat1Kr = tmpCategoryKr[1];
-      cat2Kr = tmpCategoryKr[2];
-      cat3Kr = tmpCategoryKr[3];
-      cat4Kr = tmpCategoryKr[4];
-      cat5Kr = tmpCategoryKr[5];
-      cat6Kr = tmpCategoryKr[6];
-      cat7Kr = tmpCategoryKr[7];
-      cat8Kr = tmpCategoryKr[8];
-
-      List<String> tmpCategoryEn = _categoryEn.split(',');
-      cat0En = tmpCategoryEn[0];
-      cat1En = tmpCategoryEn[1];
-      cat2En = tmpCategoryEn[2];
-      cat3En = tmpCategoryEn[3];
-      cat4En = tmpCategoryEn[4];
-      cat5En = tmpCategoryEn[5];
-      cat6En = tmpCategoryEn[6];
-      cat7En = tmpCategoryEn[7];
-      cat8En = tmpCategoryEn[8];
-
-
-      //set product
-      restaurants = null;
-      restaurants = <Restaurant>[];
-      restaurants = List.from(parsedData.restaurants);
-
-      //set event
-      events = null;
-      events = <Event>[];
-      events = List.from(parsedData.events);
-
-      status = parsedData.status;
+    } on SocketException {
+      print("You are not connected to internet");
+      _errorMessage = "connection";
+    } on TimeoutException {
+      print("time out");
+      _errorMessage = "timeout";
     }
 
     return status;
@@ -205,14 +220,14 @@ class _LoadInitPageState extends State<LoadInitPage> {
     });
   }
 
-  void _goToErrorPage() {
+  void _goToErrorPage(String err) {
     Future.delayed(Duration.zero, () {
       Navigator.of(context).pop();
 
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ErrorPage(),
+          builder: (context) => ErrorPage(err:err),
         ),
       );
     });
@@ -232,7 +247,10 @@ class _LoadInitPageState extends State<LoadInitPage> {
         body: Container(
           color: kPrimaryColor,
           child: Center(
-            child: Text('loadingMessage',style: TextStyle(color: kLoadingTextColor),).tr(),
+            child: Text(
+              'loadingMessage',
+              style: TextStyle(color: kLoadingTextColor),
+            ).tr(),
           ),
         ),
       ),
@@ -257,7 +275,8 @@ class ResData {
     List<Config> configList = list.map((i) => Config.fromJson(i)).toList();
 
     var list2 = json['restaurants'] as List;
-    List<Restaurant> restaurantList = list2.map((i) => Restaurant.fromJson(i)).toList();
+    List<Restaurant> restaurantList =
+        list2.map((i) => Restaurant.fromJson(i)).toList();
 
     var list3 = json['events'] as List;
     List<Event> eventList = list3.map((i) => Event.fromJson(i)).toList();
